@@ -1,0 +1,12 @@
+TwojUrlop/TwojUrlop.API/bin
+TwojUrlop/TwojUrlop.API/obj
+TwojUrlop/TwojUrlop.Common/bin
+TwojUrlop/TwojUrlop.Common/obj
+TwojUrlop/TwojUrlop.DataAccess/obj
+TwojUrlop/TwojUrlop.DataAccess/bin
+TwojUrlop/TwojUrlop.DependencyInjection/obj/
+TwojUrlop/TwojUrlop.DependencyInjection/bin
+*.csproj.user
+**/obj
+**/bin
+.vs/
