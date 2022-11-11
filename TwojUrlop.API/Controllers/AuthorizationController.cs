@@ -19,6 +19,16 @@ public class AuthorizationController : Controller
     }
 
     /// <summary>
+    /// Return test string
+    /// </summary>
+    [HttpGet("test-method")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public string TestMethod()
+    {
+        return "some response";
+    }
+
+    /// <summary>
     /// Register new user
     /// </summary>
     [HttpPost("sign-up")]
