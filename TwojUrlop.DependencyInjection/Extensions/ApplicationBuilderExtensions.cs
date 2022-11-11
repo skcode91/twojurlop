@@ -5,7 +5,7 @@ public static class ApplicationBuilderExtensions
 {
     public static void ConfigureCommonPipeline(this IApplicationBuilder app, bool isDevelopment)
     {
-        if (isDevelopment)
+        if (isDevelopment || true)
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
