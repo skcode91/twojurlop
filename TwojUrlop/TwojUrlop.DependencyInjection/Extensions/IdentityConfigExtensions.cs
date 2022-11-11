@@ -5,7 +5,6 @@ using TwojUrlop.Common.Models.Entities;
 using TwojUrlop.DataAccess.DatabaseContext;
 
 namespace TwojUrlop.DependencyInjection.Extensions;
-
 public static class IdentityConfigExtensions
 {
     public static void AddNetCoreIdentity(this IServiceCollection services, IConfiguration configuration)

@@ -109,7 +109,7 @@ namespace TwojUrlop.DataAcess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -129,6 +129,36 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gender", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Female"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Male"
+                        });
                 });
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Role", b =>
@@ -160,6 +190,29 @@ namespace TwojUrlop.DataAcess.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "8060baf5-f2ca-40db-9f4d-c1a4667af17f",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "8060baf5-f2ca-40db-9f4d-c1a4667af17f",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "8060baf5-f2ca-40db-9f4d-c1a4667af17f",
+                            Name = "Worker",
+                            NormalizedName = "WORKER"
+                        });
                 });
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.User", b =>
@@ -177,6 +230,9 @@ namespace TwojUrlop.DataAcess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreateDateTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -187,6 +243,9 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -232,6 +291,8 @@ namespace TwojUrlop.DataAcess.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GenderId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -308,11 +369,19 @@ namespace TwojUrlop.DataAcess.Migrations
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.User", b =>
                 {
+                    b.HasOne("TwojUrlop.Common.Models.Entities.Gender", "Gender")
+                        .WithMany("Users")
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("TwojUrlop.Common.Models.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Gender");
 
                     b.Navigation("Role");
                 });
@@ -346,6 +415,11 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Gender", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Role", b =>

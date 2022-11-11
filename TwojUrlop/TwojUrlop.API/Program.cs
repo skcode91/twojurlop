@@ -1,27 +1,26 @@
 ﻿using System.Reflection;
 using TwojUrlop.DependencyInjection.Extensions;
+using TwojUrlop.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var projectName = Assembly.GetExecutingAssembly().GetName().Name;
 
 builder.Services.ConfigureCommonServices(builder.Configuration, projectName!);
-
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddDomainHandlers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+bool isDevelopment = app.Environment.IsDevelopment();
+if (isDevelopment)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.ConfigureCommonPipeline(isDevelopment);
 
-//app.UseAuthorization();
 
 app.MapControllers();
 

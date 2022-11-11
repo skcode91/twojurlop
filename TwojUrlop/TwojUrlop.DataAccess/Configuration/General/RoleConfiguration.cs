@@ -17,10 +17,5 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 
         builder.Property(t => t.ConcurrencyStamp)
             .ValueGeneratedOnAdd();
-
-        builder.HasMany(x => x.Users)
-            .WithOne(x => x.Role)
-            .HasForeignKey(x => x.RoleId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

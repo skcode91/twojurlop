@@ -1,5 +1,4 @@
 namespace TwojUrlop.Common.Constrants;
-
 public class TokenNames
 {
     public const string BEARER = "Bearer";

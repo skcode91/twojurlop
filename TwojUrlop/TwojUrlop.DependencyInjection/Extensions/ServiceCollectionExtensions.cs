@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
         service.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
         service.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
 
+        service.AddMapster();
         service.AddHttpContextAccessor();
         service.AddDataAccess(configuration);
         service.AddNetCoreIdentity(configuration);

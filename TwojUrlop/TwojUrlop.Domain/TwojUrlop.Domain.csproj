@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj"/>
+    <ProjectReference Include="..\TwojUrlop.DomainModel\TwojUrlop.DomainModel.csproj"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+</Project>

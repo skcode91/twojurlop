@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TwojUrlop.Common.Models.Entities;
 using TwojUrlop.Common.Models.Interfaces;
+using TwojUrlop.DataAccess.Seeds;
 
 namespace TwojUrlop.DataAccess.DatabaseContext;
 
@@ -17,6 +18,7 @@ public class TwojUrlopDbContext :
     public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
     public DbSet<User> User => Set<User>();
     public DbSet<Role> Role => Set<Role>();
+    public DbSet<Gender> Gender => Set<Gender>();
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,6 +32,7 @@ public class TwojUrlopDbContext :
         modelBuilder.HasPostgresExtension("uuid-ossp");
         modelBuilder.HasPostgresExtension("pg_trgm");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TwojUrlopDbContext).Assembly);
+        SeedConfiguration.Seed(modelBuilder);
     }
 
 }

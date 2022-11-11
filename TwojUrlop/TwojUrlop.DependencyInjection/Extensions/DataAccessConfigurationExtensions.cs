@@ -10,31 +10,29 @@ using TwojUrlop.Common.Models.Interfaces;
 using TwojUrlop.Common.Models.Settings;
 using TwojUrlop.DataAccess.DatabaseContext;
 
-namespace TwojUrlop.DependencyInjection.Extensions
+namespace TwojUrlop.DependencyInjection.Extensions;
+public static class DataAccessConfigExtensions
 {
-    public static class DataAccessConfigExtensions
+    public static void AddDataAccess(this IServiceCollection services, IConfiguration configuration, bool debugLogging = false)
     {
-        public static void AddDataAccess(this IServiceCollection services, IConfiguration configuration, bool debugLogging = false)
+        services.Configure<ConnectionStringSettings>(configuration.GetSection("ConnectionStrings"));
+
+        services.AddDbContextPool<TwojUrlopDbContext>(options =>
         {
-            services.Configure<ConnectionStringSettings>(configuration.GetSection("ConnectionStrings"));
+            options.UseNpgsql(configuration.GetConnectionString(SettingsValue.DatabaseNameConnection)!,
+                x => x.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
+            options.EnableDetailedErrors();
+            options.EnableSensitiveDataLogging();
+            options.ConfigureWarnings(x => x.Ignore(CoreEventId.FirstWithoutOrderByAndFilterWarning, CoreEventId.RowLimitingOperationWithoutOrderByWarning));
 
-            services.AddDbContextPool<TwojUrlopDbContext>(options =>
+            if (debugLogging)
             {
-                options.UseNpgsql(configuration.GetConnectionString(SettingsValue.DatabaseNameConnection),
-                    x => x.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
-                options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
-                options.ConfigureWarnings(x => x.Ignore(CoreEventId.FirstWithoutOrderByAndFilterWarning, CoreEventId.RowLimitingOperationWithoutOrderByWarning));
+                options.LogTo(x => Debug.WriteLine(x));
+            }
+        });
 
-                if (debugLogging)
-                {
-                    options.LogTo(x => Debug.WriteLine(x));
-                }
-            });
+        services.AddScoped<ITwojUrlopDbContext>(provider => provider.GetService<TwojUrlopDbContext>()!);
 
-            services.AddScoped<ITwojUrlopDbContext>(provider => provider.GetService<TwojUrlopDbContext>());
-            
-            services.AddDataProtection().PersistKeysToDbContext<TwojUrlopDbContext>();
-        }
+        services.AddDataProtection().PersistKeysToDbContext<TwojUrlopDbContext>();
     }
 }

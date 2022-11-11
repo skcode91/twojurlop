@@ -1,29 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>TwojUrlop</RootNamespace>
-    <UserSecretsId>3ca242c8-bbd1-4553-8ba0-2779fd91b46b</UserSecretsId>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Extensions\" />
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TwojUrlop.Common\TwojUrlop.Common.csproj" />
     <ProjectReference Include="..\TwojUrlop.DependencyInjection\TwojUrlop.DependencyInjection.csproj" />
+    <ProjectReference Include="..\TwojUrlop.DomainModel\TwojUrlop.DomainModel.csproj" />
+    <ProjectReference Include="..\TwojUrlop.Domain\TwojUrlop.Domain.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>TwojUrlop</RootNamespace>
+    <TargetFramework>net7.0</TargetFramework>
+    <UserSecretsId>3ca242c8-bbd1-4553-8ba0-2779fd91b46b</UserSecretsId>
+  </PropertyGroup>
 </Project>
