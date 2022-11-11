@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
         service.AddNetCoreIdentity(configuration);
         service.AddControllers();
         service.AddSwagger(projectName);
-        service.AddCors();
+        //service.AddCors();
         service.AddMvc();
     }
 }
