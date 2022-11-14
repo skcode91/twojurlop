@@ -10,3 +10,4 @@ TwojUrlop/TwojUrlop.DependencyInjection/bin
 **/obj
 **/bin
 .vs/
+.idea/
