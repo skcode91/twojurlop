@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         service.AddHttpContextAccessor();
         service.AddDataAccess(configuration);
         service.AddNetCoreIdentity(configuration);
+        service.AddJwt(configuration);
         service.AddControllers();
         service.AddSwagger(projectName);
         //service.AddCors();

@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using TwojUrlop.DomainModel.Authorization.Commands.SignIn;
 using TwojUrlop.DomainModel.Authorization.Commands.SignUp;
 using TwojUrlop.DomainModel.Authorization.Queries;
 
@@ -8,12 +9,13 @@ namespace TwojUrlop.Controllers;
 [ApiController]
 public class AuthorizationController : Controller
 {
+    private readonly ISignInHandler _signInHandler;
     private readonly ISignUpHandler _signUpHandler;
     private readonly IGetUsersFullnameHandler _getUsersFullnameHandler;
 
-
-    public AuthorizationController(ISignUpHandler signUpHandler, IGetUsersFullnameHandler getUsersFullnameHandler)
+    public AuthorizationController(ISignInHandler signInHandler, ISignUpHandler signUpHandler, IGetUsersFullnameHandler getUsersFullnameHandler)
     {
+        _signInHandler = signInHandler;
         _signUpHandler = signUpHandler;
         _getUsersFullnameHandler = getUsersFullnameHandler;
     }
@@ -26,6 +28,16 @@ public class AuthorizationController : Controller
     public string TestMethod()
     {
         return "some response";
+    }
+
+    /// <summary>
+    /// Login user
+    /// </summary>
+    [HttpPost("sign-in")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<SignInResponse> SignIn([FromBody] SignInRequest request)
+    {
+        return await _signInHandler.Handle(request);
     }
 
     /// <summary>

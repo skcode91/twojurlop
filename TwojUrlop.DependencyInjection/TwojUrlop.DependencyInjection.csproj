@@ -3,6 +3,7 @@
   <ItemGroup>
     <PackageReference Include="FastExpressionCompiler" Version="3.3.3"/>
     <PackageReference Include="Mapster" Version="7.3.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.2.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0"/>
