@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwojUrlop.DomainModel", "Tw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwojUrlop.Mapster", "TwojUrlop.Mapster\TwojUrlop.Mapster.csproj", "{8FE0833A-E30C-4008-BB29-02AC618C6865}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8FE0833A-E30C-4008-BB29-02AC618C6865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FE0833A-E30C-4008-BB29-02AC618C6865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FE0833A-E30C-4008-BB29-02AC618C6865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj"/>
-    <ProjectReference Include="..\TwojUrlop.DomainModel\TwojUrlop.DomainModel.csproj"/>
+    <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj" />
+    <ProjectReference Include="..\TwojUrlop.DomainModel\TwojUrlop.DomainModel.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>

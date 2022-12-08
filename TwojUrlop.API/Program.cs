@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using TwojUrlop.Common.Models.Settings;
 using TwojUrlop.DependencyInjection.Extensions;
 using TwojUrlop.Extensions;
 
@@ -13,13 +14,15 @@ builder.Services.AddDomainHandlers();
 var app = builder.Build();
 
 bool isDevelopment = app.Environment.IsDevelopment();
+var securitySettings = app.Configuration.GetSection("Security").Get<SecuritySettings>()!;
+
 if (isDevelopment)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.ConfigureCommonPipeline(isDevelopment);
+app.ConfigureCommonPipeline(securitySettings, isDevelopment);
 
 
 app.MapControllers();

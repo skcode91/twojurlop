@@ -25,5 +25,6 @@
     <RootNamespace>TwojUrlop</RootNamespace>
     <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>3ca242c8-bbd1-4553-8ba0-2779fd91b46b</UserSecretsId>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 </Project>

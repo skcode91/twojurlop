@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="FastExpressionCompiler" Version="2.0.0"/>
-    <PackageReference Include="Mapster" Version="7.3.0"/>
+    <PackageReference Include="FastExpressionCompiler" Version="2.0.0" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj"/>
+    <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
