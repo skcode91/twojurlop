@@ -1,23 +1,24 @@
 FROM node:lts-alpine
 
 # Set working directory
-WORKDIR /app
+WORKDIR /usr/app
+
+# Install PM2 globally
+RUN npm install --global pm2
+
+# Copy "package.json" and "yarn.lock" before other files
+# Utilise Docker cache to save re-installing dependencies if unchanged
+COPY ./package.json ./
+COPY ./yarn.lock ./
+
+# Install dependencies
+RUN yarn install
 
 # Copy all files
 COPY . .
 
-
-# Build app
-RUN yarn install
-
 # Build app
 RUN yarn build
-
-# Remove src directory
-RUN rm -rf src
-
-# Install PM2 globally
-RUN npm install --global pm2
 
 ENV NODE_ENV production
 
@@ -35,4 +36,4 @@ USER nextjs
 EXPOSE 3000
 
 # Launch app with PM2
-CMD [ "pm2-runtime", "start", "yarn", "--interpreter", "sh", "--", "start" ]
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
