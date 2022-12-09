@@ -13,7 +13,8 @@ COPY ["TwojUrlop.DependencyInjection/TwojUrlop.DependencyInjection.csproj", "Two
 COPY ["TwojUrlop.DataAccess/TwojUrlop.DataAccess.csproj", "TwojUrlop.DataAccess/"]
 COPY ["TwojUrlop.DomainModel/TwojUrlop.DomainModel.csproj", "TwojUrlop.DomainModel/"]
 COPY ["TwojUrlop.Domain/TwojUrlop.Domain.csproj", "TwojUrlop.Domain/"]
-RUN dotnet restore "TwojUrlop.API/TwojUrlop.API.csproj"
+
+RUN dotnet restore "TwojUrlop.API/TwojUrlop.API.csproj" 
 COPY . .
 WORKDIR "/src/TwojUrlop.API"
 RUN dotnet build "TwojUrlop.API.csproj" -c Release -o /app/build

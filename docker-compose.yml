@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  twojurlop.api:
+    image: ${DOCKER_REGISTRY-}twojurlop
+    build:
+      context: .
+      dockerfile: TwojUrlop.API/Dockerfile

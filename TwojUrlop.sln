@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwojUrlop.DomainModel", "Tw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwojUrlop.Mapster", "TwojUrlop.Mapster\TwojUrlop.Mapster.csproj", "{8FE0833A-E30C-4008-BB29-02AC618C6865}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5A12C570-BEA4-4987-AABF-C0A9784631AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +57,18 @@ Global
 		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEBEEBA3-8B31-4733-B4D7-DC61D133B167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F04857-C80A-4809-A979-F6FFD8EF7932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F04857-C80A-4809-A979-F6FFD8EF7932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F04857-C80A-4809-A979-F6FFD8EF7932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F04857-C80A-4809-A979-F6FFD8EF7932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBAA66CE-B865-4915-A066-CA46E82DA090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAA66CE-B865-4915-A066-CA46E82DA090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAA66CE-B865-4915-A066-CA46E82DA090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAA66CE-B865-4915-A066-CA46E82DA090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A12C570-BEA4-4987-AABF-C0A9784631AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A12C570-BEA4-4987-AABF-C0A9784631AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A12C570-BEA4-4987-AABF-C0A9784631AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A12C570-BEA4-4987-AABF-C0A9784631AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
