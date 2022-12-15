@@ -19,7 +19,14 @@ public class TwojUrlopDbContext :
     public DbSet<User> User => Set<User>();
     public DbSet<Role> Role => Set<Role>();
     public DbSet<Gender> Gender => Set<Gender>();
-
+    public DbSet<Year> Year => Set<Year>();
+    public DbSet<UserRole> UserRole => Set<UserRole>();
+    public DbSet<UserVacation> UserVacation => Set<UserVacation>();
+    public DbSet<UserVacationInfo> UserVacationInfo => Set<UserVacationInfo>();
+    public DbSet<Vacation> Vacation => Set<Vacation>();
+    public DbSet<VacationRequest> VacationRequest => Set<VacationRequest>();
+    public DbSet<VacationRequestStatus> VacationRequestStatus => Set<VacationRequestStatus>();
+    public DbSet<VacationSize> VacationSize => Set<VacationSize>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
