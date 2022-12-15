@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace A3XD.DataAccess.Configuration.Users;
+namespace TwojUrlop.DataAcess.Configuration;
 public class UserLoginConfiguration : IEntityTypeConfiguration<IdentityUserLogin<int>>
 {
     public void Configure(EntityTypeBuilder<IdentityUserLogin<int>> builder)

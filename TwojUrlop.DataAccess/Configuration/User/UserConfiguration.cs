@@ -10,6 +10,22 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("User");
 
         builder.HasKey(x => x.Id);
-    }
 
+        builder.Property(x => x.PESEL).IsRequired();
+
+        builder.HasMany(x => x.UserVacations)
+            .WithOne(y => y.User)
+            .HasForeignKey(y => y.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.VacationRequests)
+            .WithOne(y => y.User)
+            .HasForeignKey(y => y.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(x => x.UserVacationInfos)
+            .WithOne(y => y.User)
+            .HasForeignKey(y => y.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 }
