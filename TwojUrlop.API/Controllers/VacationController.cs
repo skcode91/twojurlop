@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TwojUrlop.DomainModel.Vacation.Interfaces;
+using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.Common.Models.Entities;
 using System.Net;
 
@@ -9,17 +9,17 @@ namespace TwojUrlop.Controllers;
 [ApiController]
 public class VacationController :Controller
 {
-    private readonly IVacationRequestHandler _vacationRequestHandler;
+    private readonly ISendVacationRequestHandler _vacationRequestHandler;
 
-    public VacationController(IVacationRequestHandler vacationRequestHandler)
+    public VacationController(ISendVacationRequestHandler vacationRequestHandler)
     {
         _vacationRequestHandler = vacationRequestHandler;
     }
 
     [HttpPost("vacation-request")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<string> RequestVacation([FromBody] VacationRequest request)
+    public async Task RequestVacation([FromBody] SendVacationRequestRequest request)
     {
-        return await _vacationRequestHandler.Handle(request);
+         await _vacationRequestHandler.Handle(request);
     } 
 }

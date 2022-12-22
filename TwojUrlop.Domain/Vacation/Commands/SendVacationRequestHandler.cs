@@ -1,18 +1,19 @@
-using TwojUrlop.DomainModel.Vacation.Interfaces;
+using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.DataAccess.DatabaseContext;
 using TwojUrlop.Common.Models.Entities;
+using Mapster;
 
 namespace TwojUrlop.Domain.Vacation.Commands;
 
-public class VacationRequestHandler : IVacationRequestHandler
+public class SendVacationRequestHandler : ISendVacationRequestHandler
 {
     private readonly TwojUrlopDbContext _context;
-    public VacationRequestHandler(TwojUrlopDbContext context)
+    public SendVacationRequestHandler(TwojUrlopDbContext context)
     {
         _context = context;
     }
     
-    public async Task<string> Handle(VacationRequest request)
+    public async Task Handle(SendVacationRequestRequest request)
     {
         try
         {
@@ -20,8 +21,8 @@ public class VacationRequestHandler : IVacationRequestHandler
             {
                 throw new ArgumentNullException("Parameter is null");
             }
-            await Task.Run(() => _context.Add(request));
-            return "Request is sended to supervisor";
+            VacationRequest newVacationRequest = request.Adapt<VacationRequest>();
+            await  _context.AddAsync(request);
         }
         catch(Exception ex)
         {

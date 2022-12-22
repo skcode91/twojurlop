@@ -3,7 +3,7 @@ using TwojUrlop.Domain.Vacation.Commands;
 using TwojUrlop.DomainModel.Authorization.Commands.SignIn;
 using TwojUrlop.DomainModel.Authorization.Commands.SignUp;
 using TwojUrlop.DomainModel.Authorization.Queries;
-using TwojUrlop.DomainModel.Vacation.Interfaces;
+using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 
 namespace TwojUrlop.Extensions;
 public static class DomainHandlerExtensions
@@ -13,7 +13,7 @@ public static class DomainHandlerExtensions
         services.AddTransient<ISignUpHandler, SignUpHandler>();
         services.AddTransient<IGetUsersFullnameHandler, GetUsersFullnameHandler>();
         services.AddTransient<ISignInHandler, SignInHandler>();
-        services.AddTransient<IVacationRequestHandler, VacationRequestHandler>();
+        services.AddTransient<ISendVacationRequestHandler, SendVacationRequestHandler>();
     }
 }
 
