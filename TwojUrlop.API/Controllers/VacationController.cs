@@ -5,7 +5,7 @@ using System.Net;
 
 namespace TwojUrlop.Controllers;
 
-[Route("api/[contorller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class VacationController :Controller
 {

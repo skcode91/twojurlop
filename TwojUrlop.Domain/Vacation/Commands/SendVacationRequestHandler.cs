@@ -22,7 +22,7 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
                 throw new ArgumentNullException("Parameter is null");
             }
             VacationRequest newVacationRequest = request.Adapt<VacationRequest>();
-            await  _context.AddAsync(request);
+            await  _context.AddAsync(newVacationRequest);
         }
         catch(Exception ex)
         {
