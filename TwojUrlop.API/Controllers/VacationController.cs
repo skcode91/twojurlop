@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TwojUrlop.DomainModel.Vacation.Commands.DeleteVacationRequest;
+using TwojUrlop.DomainModel.Vacation.Queries.GetVacationRequests;
 using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.Common.Models.Entities;
 using System.Net;
@@ -7,13 +9,28 @@ namespace TwojUrlop.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class VacationController :Controller
+public class VacationController : Controller
 {
     private readonly ISendVacationRequestHandler _vacationRequestHandler;
-
-    public VacationController(ISendVacationRequestHandler vacationRequestHandler)
+    private readonly IGetVacationRequestsHandler _getVacationRequestsHandler;
+    private readonly IDeleteVacationRequestHandler _deleteVacationRequestHandler;
+    public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler, ISendVacationRequestHandler vacationRequestHandler)
     {
+        _getVacationRequestsHandler = getVacationRequestsHandler;
+        _deleteVacationRequestHandler = deleteVacationRequestHandler;
         _vacationRequestHandler = vacationRequestHandler;
+    }
+
+    [HttpGet("vacation-request")]
+    public async Task<GetVacationRequestsResponse> GetVacationRequests([FromQuery] GetVacationRequestsRequest request)
+    {
+        return await _getVacationRequestsHandler.Handle(request);
+    }
+
+    [HttpDelete("vacation-request")]
+    public async Task DeleteVacationRequest([FromBody] DeleteVacationRequestRequest request)
+    {
+        await _deleteVacationRequestHandler.Handle(request);
     }
 
     [HttpPost("vacation-request")]
