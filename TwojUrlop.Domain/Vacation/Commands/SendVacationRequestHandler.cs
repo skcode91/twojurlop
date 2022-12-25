@@ -2,6 +2,7 @@ using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.DataAccess.DatabaseContext;
 using TwojUrlop.Common.Models.Entities;
 using Mapster;
+using Enums = TwojUrlop.Common.Enums;
 
 namespace TwojUrlop.Domain.Vacation.Commands;
 
@@ -14,19 +15,15 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
     }
     
     public async Task Handle(SendVacationRequestRequest request)
-    {
-        try
+    {   
+        if(request == null)
         {
-            if(request == null)
-            {
-                throw new ArgumentNullException("Parameter is null");
-            }
-            VacationRequest newVacationRequest = request.Adapt<VacationRequest>();
-            await  _context.AddAsync(newVacationRequest);
+            throw new ArgumentNullException("Parameter is null");
         }
-        catch(Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        VacationRequest newVacationRequest = request.Adapt<VacationRequest>();
+        newVacationRequest.StatusId = (int)Enums.VacationRequestStatus.Active;
+
+        await  _context.AddAsync(newVacationRequest);
+        await _context.SaveChangesAsync();
     }
 }
