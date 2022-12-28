@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TwojUrlop.DomainModel.Vacation.Commands.DeleteVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacationRequests;
 using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
-using TwojUrlop.Common.Models.Entities;
+using TwojUrlop.DomainModel.Vacation.Commands.HandleVacationRequest;
 using System.Net;
 
 namespace TwojUrlop.Controllers;
@@ -14,11 +14,14 @@ public class VacationController : Controller
     private readonly ISendVacationRequestHandler _vacationRequestHandler;
     private readonly IGetVacationRequestsHandler _getVacationRequestsHandler;
     private readonly IDeleteVacationRequestHandler _deleteVacationRequestHandler;
-    public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler, ISendVacationRequestHandler vacationRequestHandler)
+    private readonly IHandleVacationRequestHandler _handlerVacationRequestHandler;
+    public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler, 
+        ISendVacationRequestHandler vacationRequestHandler, IHandleVacationRequestHandler handleVacationRequestHandler)
     {
         _getVacationRequestsHandler = getVacationRequestsHandler;
         _deleteVacationRequestHandler = deleteVacationRequestHandler;
         _vacationRequestHandler = vacationRequestHandler;
+        _handlerVacationRequestHandler = handleVacationRequestHandler;
     }
 
     [HttpGet("vacation-request")]
@@ -34,9 +37,14 @@ public class VacationController : Controller
     }
 
     [HttpPost("vacation-request")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task RequestVacation([FromBody] SendVacationRequestRequest request)
     {
-         await _vacationRequestHandler.Handle(request);
-    } 
+        await _vacationRequestHandler.Handle(request);
+    }
+
+    [HttpPost("vacation-request-handle")]
+    public async Task HandleRequestVacation([FromBody] HandleVacationRequestRequest request) 
+    {
+        await _handlerVacationRequestHandler.Handle(request);
+    }
 }
