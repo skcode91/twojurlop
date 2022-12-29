@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TwojUrlop.DataAccess.DatabaseContext;
@@ -11,9 +12,10 @@ using TwojUrlop.DataAccess.DatabaseContext;
 namespace TwojUrlop.DataAcess.Migrations
 {
     [DbContext(typeof(TwojUrlopDbContext))]
-    partial class TwojUrlopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229225347_Vacation-Year-Many-To-Many-Instead-One-To-Many")]
+    partial class VacationYearManyToManyInsteadOneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -334,6 +336,21 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("TwojUrlop.Common.Models.Entities.UserVacation", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VacationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "VacationId");
+
+                    b.HasIndex("VacationId");
+
+                    b.ToTable("UserVacation", (string)null);
+                });
+
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.UserVacationInfo", b =>
                 {
                     b.Property<int>("Id")
@@ -382,12 +399,7 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Vacation", (string)null);
                 });
@@ -592,6 +604,25 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TwojUrlop.Common.Models.Entities.UserVacation", b =>
+                {
+                    b.HasOne("TwojUrlop.Common.Models.Entities.User", "User")
+                        .WithMany("UserVacations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TwojUrlop.Common.Models.Entities.Vacation", "Vacation")
+                        .WithMany("UserVacations")
+                        .HasForeignKey("VacationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("Vacation");
+                });
+
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.UserVacationInfo", b =>
                 {
                     b.HasOne("TwojUrlop.Common.Models.Entities.User", "User")
@@ -617,17 +648,6 @@ namespace TwojUrlop.DataAcess.Migrations
                     b.Navigation("VacationSize");
 
                     b.Navigation("Year");
-                });
-
-            modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Vacation", b =>
-                {
-                    b.HasOne("TwojUrlop.Common.Models.Entities.User", "User")
-                        .WithMany("Vacations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.VacationRequest", b =>
@@ -703,13 +723,15 @@ namespace TwojUrlop.DataAcess.Migrations
                 {
                     b.Navigation("UserVacationInfos");
 
-                    b.Navigation("VacationRequests");
+                    b.Navigation("UserVacations");
 
-                    b.Navigation("Vacations");
+                    b.Navigation("VacationRequests");
                 });
 
             modelBuilder.Entity("TwojUrlop.Common.Models.Entities.Vacation", b =>
                 {
+                    b.Navigation("UserVacations");
+
                     b.Navigation("VacationYears");
                 });
 

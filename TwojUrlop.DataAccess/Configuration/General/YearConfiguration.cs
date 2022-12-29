@@ -23,7 +23,7 @@ public class YearConfiguration : IEntityTypeConfiguration<Year>
             .HasForeignKey(y => y.YearId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(x => x.Vacations)
+        builder.HasMany(x => x.VacationYears)
             .WithOne(y => y.Year)
             .HasForeignKey(y => y.YearId)
             .OnDelete(DeleteBehavior.Restrict);

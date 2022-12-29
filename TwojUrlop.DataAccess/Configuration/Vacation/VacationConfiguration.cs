@@ -15,14 +15,14 @@ public class VacationConfiguration : IEntityTypeConfiguration<Vacation>
         builder.Property(x => x.EndDate).IsRequired(true);
         builder.Property(x => x.DaysCount).IsRequired(true);
 
-        builder.HasMany(x => x.UserVacations)
-            .WithOne(y => y.Vacation)
-            .HasForeignKey(y => y.VacationId)
+        builder.HasOne(x => x.User)
+            .WithMany(y => y.Vacations)
+            .HasForeignKey(y => y.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(x => x.Year)
-            .WithMany(y => y.Vacations)
-            .HasForeignKey(x => x.YearId)
+        builder.HasMany(x => x.VacationYears)
+            .WithOne(y => y.Vacation)
+            .HasForeignKey(x => x.VacationId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

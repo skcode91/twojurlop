@@ -5,7 +5,7 @@ public class Vacation
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public int DaysCount { get; set; }
-    public virtual IList<UserVacation> UserVacations { get; set; } = default!;
-    public int YearId { get; set; }
-    public virtual Year Year { get; set; } = default!;
+    public int UserId { get; set; }
+    public virtual User User { get; set; } = default!;
+    public virtual IList<VacationYear> VacationYears { get; set; } = default!;
 }

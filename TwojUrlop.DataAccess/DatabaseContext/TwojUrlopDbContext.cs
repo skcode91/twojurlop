@@ -21,7 +21,6 @@ public class TwojUrlopDbContext :
     public DbSet<Gender> Gender => Set<Gender>();
     public DbSet<Year> Year => Set<Year>();
     public DbSet<UserRole> UserRole => Set<UserRole>();
-    public DbSet<UserVacation> UserVacation => Set<UserVacation>();
     public DbSet<UserVacationInfo> UserVacationInfo => Set<UserVacationInfo>();
     public DbSet<Vacation> Vacation => Set<Vacation>();
     public DbSet<VacationRequest> VacationRequest => Set<VacationRequest>();
