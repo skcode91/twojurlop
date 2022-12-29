@@ -15,9 +15,9 @@ public class VacationConfiguration : IEntityTypeConfiguration<Vacation>
         builder.Property(x => x.EndDate).IsRequired(true);
         builder.Property(x => x.DaysCount).IsRequired(true);
 
-        builder.HasMany(x => x.UserVacations)
-            .WithOne(y => y.Vacation)
-            .HasForeignKey(y => y.VacationId)
+        builder.HasOne(x => x.User)
+            .WithMany(y => y.Vacations)
+            .HasForeignKey(y => y.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(x => x.VacationYears)

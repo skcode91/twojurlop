@@ -13,7 +13,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.PESEL).IsRequired();
 
-        builder.HasMany(x => x.UserVacations)
+        builder.HasMany(x => x.Vacations)
             .WithOne(y => y.User)
             .HasForeignKey(y => y.UserId)
             .OnDelete(DeleteBehavior.Restrict);
