@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TwojUrlop.DataAccess.DatabaseContext;
@@ -11,9 +12,10 @@ using TwojUrlop.DataAccess.DatabaseContext;
 namespace TwojUrlop.DataAcess.Migrations
 {
     [DbContext(typeof(TwojUrlopDbContext))]
-    partial class TwojUrlopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229225347_Vacation-Year-Many-To-Many-Instead-One-To-Many")]
+    partial class VacationYearManyToManyInsteadOneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

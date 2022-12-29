@@ -20,9 +20,9 @@ public class VacationConfiguration : IEntityTypeConfiguration<Vacation>
             .HasForeignKey(y => y.VacationId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(x => x.Year)
-            .WithMany(y => y.Vacations)
-            .HasForeignKey(x => x.YearId)
+        builder.HasMany(x => x.VacationYears)
+            .WithOne(y => y.Vacation)
+            .HasForeignKey(x => x.VacationId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
