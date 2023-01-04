@@ -6,7 +6,8 @@ public class User : IdentityUser<int>
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public int PESEL { get; set; }
-    public int YearsOfWork { get; set; }
+    public int NumberOfYearsWorkedOnHiringDate { get; set; }
+    public DateTime HiringDate { get; set; }
     public DateTime CreateDateTime { get; set; }
     public int GenderId { get; set; }
     public virtual Gender Gender { get; set; } = default!;

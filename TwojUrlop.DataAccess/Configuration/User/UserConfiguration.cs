@@ -13,6 +13,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.PESEL).IsRequired();
 
+        builder.Property(x => x.NumberOfYearsWorkedOnHiringDate).IsRequired();
+
         builder.HasMany(x => x.Vacations)
             .WithOne(y => y.User)
             .HasForeignKey(y => y.UserId)
