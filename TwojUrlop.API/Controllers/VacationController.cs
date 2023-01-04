@@ -36,7 +36,7 @@ public class VacationController : Controller
         await _deleteVacationRequestHandler.Handle(request);
     }
 
-    [HttpPost("vacation-request")]
+    [HttpPost("vacation-request-send")]
     public async Task RequestVacation([FromBody] SendVacationRequestRequest request)
     {
         await _vacationRequestHandler.Handle(request);
