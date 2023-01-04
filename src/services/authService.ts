@@ -1,5 +1,6 @@
 import { signInRequest } from "src/api/authorizationApi";
 import { ClaimTypes } from "src/common/enums/ClaimTypes";
+import { Roles } from "src/common/enums/Roles";
 import { decodeJWT } from "src/common/helpers/jwtHelper";
 import { SignInRequest } from "src/common/models/api/requests/SignInRequest";
 import { SignInResponse } from "src/common/models/api/responses/SignInResponse";
@@ -48,4 +49,14 @@ const getClaimArray = (claimArray: string | string[]) => {
       ? claimArray.map((x) => parseInt(x))
       : [parseInt(claimArray)]
     : [];
+};
+
+export const signOut = async (
+  setUserContext: React.Dispatch<
+    React.SetStateAction<UserContextUser | undefined>
+  >
+) => {
+  localStorage.setItem("UserContext", "");
+  localStorage.setItem("AccessToken", "");
+  setUserContext(() => undefined);
 };

@@ -1,6 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import DashboardLayout from "src/common/components/dashboard-layout/DashboardLayout";
 import { UserContext } from "src/common/contexts/UserContext";
 import { Pages } from "src/common/enums/Pages";
 import { getPageUrl } from "src/common/helpers/routingHelper";
@@ -11,10 +12,11 @@ const Dashboard = () => {
   const router = useRouter();
 
   const redirectToPage = async (page: Pages) => {
-    await router.push(getPageUrl(page));
+    //await router.push(getPageUrl(page));
   };
+
   return (
-    <Box>
+    <DashboardLayout>
       <Typography variant="h4">
         {isLogged ? "zalogowany" : "niezalogowany"}
       </Typography>
@@ -24,7 +26,7 @@ const Dashboard = () => {
       <Button variant="contained" onClick={() => redirectToPage(Pages.signOut)}>
         Rejestracja
       </Button>
-    </Box>
+    </DashboardLayout>
   );
 };
 
