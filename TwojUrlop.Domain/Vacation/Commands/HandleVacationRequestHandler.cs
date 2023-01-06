@@ -37,11 +37,6 @@ public class HandleVacationRequestHandler : IHandleVacationRequestHandler
         var startYearId = await GetYearId(vacationRequest.StartDate.Year);
         await CreateNewVacationYearElement(newVacationId, startYearId);
         await SubstactionVacationDays(vacationRequest.DaysCount, startYearId, vacationRequest.UserId);
-        if(vacationRequest.StartDate.Year != vacationRequest.EndDate.Year)
-        {
-            var endYearId = await GetYearId(vacationRequest.EndDate.Year);
-            await CreateNewVacationYearElement(newVacationId, endYearId);
-        }
     }
     private async Task<int> CreateNewVacationElement(VacationRequest vacationRequest)
     {
@@ -99,6 +94,10 @@ public class HandleVacationRequestHandler : IHandleVacationRequestHandler
     private async Task SubstactionVacationDays(int CountDays, int yearId, int userId)
     {
         var userVacationInfo = await GetUserVacationInfo(yearId, userId);
+        if(userVacationInfo.DaysLeft - CountDays < 0)
+        {
+            throw new Exception(message: "Count days is greater than DaysLeft");
+        }
         userVacationInfo.DaysLeft -= CountDays;
         await _context.SaveChangesAsync();
     }
@@ -116,9 +115,38 @@ public class HandleVacationRequestHandler : IHandleVacationRequestHandler
         UserVacationInfo newUserVacationInfo = new UserVacationInfo();
         newUserVacationInfo.UserId = userId;
         newUserVacationInfo.YearId = yearId;
-        //TODO: Add definition of DaysLeft and VacationSizeId
+
+        var vacationSize = await GetVacationSize(userId, yearId);
+        newUserVacationInfo.VacationSizeId = vacationSize.Id;
+        newUserVacationInfo.DaysLeft = vacationSize.Value;
+        
         await _context.UserVacationInfo.AddAsync(newUserVacationInfo);
         await _context.SaveChangesAsync();
         return newUserVacationInfo;
     }
+
+    private async Task<VacationSize> GetVacationSize(int userId, int yearId)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        var year = await _context.Year.FirstOrDefaultAsync(x => x.Id == yearId);
+        
+        if(user == null)
+        {
+            throw new Exception(message:"user is not found");
+        }
+        if(year == null)
+        {
+            throw new Exception(message: "year is not found");
+        }
+
+        bool isLongVacationSize = (year.Value - user.HiringDate.Year + user.NumberOfYearsWorkedOnHiringDate) >= 10;
+        var vacationSize = await _context.VacationSize.FirstOrDefaultAsync(x => x.Value == (isLongVacationSize ? 26 : 20));
+        
+        if (vacationSize == null)
+        {
+            throw new Exception(message: "Vacation Size is null");
+        }
+
+        return vacationSize;
+    }   
 }

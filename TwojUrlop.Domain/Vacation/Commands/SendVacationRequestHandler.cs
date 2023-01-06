@@ -11,7 +11,6 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
     private readonly TwojUrlopDbContext _context;
     private int _vacationRequestId {get; set;} 
     private int _yearStartId {get; set;}
-    private int _yearEndId {get; set;}
     public SendVacationRequestHandler(TwojUrlopDbContext context)
     {
         _context = context;
@@ -20,12 +19,8 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
     public async Task Handle(SendVacationRequestRequest request)
     {   
         await CreateVacationRequest(request);
-        await GetOrCreateYear(request.StartDate.Year, request.EndDate.Year);
+        await GetOrCreateYear(request.StartDate.Year);
         await CreateVacationRequestYear(_yearStartId, _vacationRequestId);
-        if(_yearStartId != _yearEndId)
-        {
-            await CreateVacationRequestYear(_yearEndId, _vacationRequestId);
-        }
     }
 
     private async Task CreateVacationRequest(SendVacationRequestRequest request)
@@ -33,6 +28,10 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
         if(request == null)
         {
             throw new ArgumentNullException("Parameter is null");
+        }
+        if(request.StartDate.Year != request.EndDate.Year)
+        {
+            throw new Exception(message: "Vacation is finished in new Year");
         }
         VacationRequest newVacationRequest = request.Adapt<VacationRequest>();
         newVacationRequest.StatusId = (int)Enums.VacationRequestStatus.Active;
@@ -49,7 +48,7 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
         await _context.AddAsync(vacationRequestYear);
         await _context.SaveChangesAsync();
     }
-    private async Task GetOrCreateYear(int startDate, int endDate)
+    private async Task GetOrCreateYear(int startDate)
     {
         var yearStart = _context.Year.FirstOrDefault(x => x.Value == startDate);
         if(yearStart == null)
@@ -57,18 +56,6 @@ public class SendVacationRequestHandler : ISendVacationRequestHandler
             yearStart = await CreateYear(startDate);
         }
         _yearStartId = yearStart.Id;
-        _yearEndId = yearStart.Id;
-
-        if(startDate != endDate)
-        {
-            var yearEnd = _context.Year.FirstOrDefault(x => x.Value == endDate);
-            if(yearEnd == null)
-            {
-                yearEnd = await CreateYear(endDate);
-            }
-            _yearEndId = yearEnd.Id;
-        }
-        
     }   
     private async Task<Year> CreateYear(int yearValue)
     {
