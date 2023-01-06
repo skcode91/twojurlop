@@ -3,6 +3,7 @@ using TwojUrlop.DomainModel.Vacation.Commands.DeleteVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacationRequests;
 using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Commands.HandleVacationRequest;
+using TwojUrlop.DomainModel.Vacation.Queries.GetVacations;
 using System.Net;
 
 namespace TwojUrlop.Controllers;
@@ -15,19 +16,27 @@ public class VacationController : Controller
     private readonly IGetVacationRequestsHandler _getVacationRequestsHandler;
     private readonly IDeleteVacationRequestHandler _deleteVacationRequestHandler;
     private readonly IHandleVacationRequestHandler _handlerVacationRequestHandler;
+    private readonly IGetVacationsHandler _getVacationsHandler;
     public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler, 
-        ISendVacationRequestHandler vacationRequestHandler, IHandleVacationRequestHandler handleVacationRequestHandler)
+        ISendVacationRequestHandler vacationRequestHandler, IHandleVacationRequestHandler handleVacationRequestHandler, IGetVacationsHandler getVacationsHandler)
     {
         _getVacationRequestsHandler = getVacationRequestsHandler;
         _deleteVacationRequestHandler = deleteVacationRequestHandler;
         _vacationRequestHandler = vacationRequestHandler;
         _handlerVacationRequestHandler = handleVacationRequestHandler;
+        _getVacationsHandler = getVacationsHandler;
     }
 
     [HttpGet("vacation-request")]
     public async Task<GetVacationRequestsResponse> GetVacationRequests([FromQuery] GetVacationRequestsRequest request)
     {
         return await _getVacationRequestsHandler.Handle(request);
+    }
+
+    [HttpGet("vacation")]
+    public async Task<GetVacationsResponse> GetVacations([FromQuery] GetVacationsRequest request)
+    {
+        return await _getVacationsHandler.Handle(request);
     }
 
     [HttpDelete("vacation-request")]
