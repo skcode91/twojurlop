@@ -5,8 +5,7 @@ export const SbMainContainer = styled(Paper)`
   margin-top: 16px;
   height: calc(100vh - 64px - 64px);
   width: 20%;
-  min-width: 120px;
-  max-width: 200px;
+  min-width: 200px;
   background: lightskyblue;
   padding: 24px 0;
   display: flex;

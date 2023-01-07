@@ -6,11 +6,10 @@ export const createApiClient = (baseUrl: string): AxiosInstance => {
     headers: {
       "X-XSRF-TOKEN": "",
     },
-    withCredentials: true,
   });
 
   apiClient.interceptors.request.use((config: AxiosRequestConfig) => {
-    const accessToken = localStorage.getItem("userContext");
+    const accessToken = localStorage.getItem("AccessToken");
 
     if (accessToken) {
       config.headers = {

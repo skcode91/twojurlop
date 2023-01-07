@@ -5,6 +5,14 @@ export const LMainContainer = styled.div`
   flex-direction: column;
 `;
 
+export const LBodyVertical = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const LcBodyContainer = styled.div`
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;

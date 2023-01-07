@@ -6,7 +6,11 @@ import { Pages } from "src/common/enums/Pages";
 import { Roles } from "src/common/enums/Roles";
 import { getPageUrl } from "src/common/helpers/routingHelper";
 import DashboardLayoutProps from "./DashboardLayoutProps";
-import { LcBodyContainer, LMainContainer } from "./DashboardLayoutStyles";
+import {
+  LBodyVertical,
+  LcBodyContainer,
+  LMainContainer,
+} from "./DashboardLayoutStyles";
 import SideBar from "./side-bar/SideBar";
 import SideBarItem from "./side-bar/SideBarItem";
 import TopBar from "./top-bar/TopBar";
@@ -44,12 +48,12 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
   return (
     <LMainContainer>
       <TopBar />
-      <Stack display="flex" direction="row">
+      <LBodyVertical>
         <SideBar items={menuItems} activeItemId={activeItemId} />
         <LcBodyContainer>
           {isLogged ? props.children : "Nie jesteś zalogowany"}
         </LcBodyContainer>
-      </Stack>
+      </LBodyVertical>
     </LMainContainer>
   );
 };
