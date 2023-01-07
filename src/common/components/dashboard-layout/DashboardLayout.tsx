@@ -1,6 +1,7 @@
 import { Stack } from "@mui/system";
 import router from "next/router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
+import { UserContext } from "src/common/contexts/UserContext";
 import { Pages } from "src/common/enums/Pages";
 import { Roles } from "src/common/enums/Roles";
 import { getPageUrl } from "src/common/helpers/routingHelper";
@@ -21,7 +22,7 @@ const menuItems: SideBarItem[] = [
     id: 1,
     name: "Urlopy",
     page: Pages.vacations,
-    access: Roles.Manager,
+    access: Roles.User,
   },
   {
     id: 2,
@@ -33,6 +34,8 @@ const menuItems: SideBarItem[] = [
 
 const DashboardLayout = (props: DashboardLayoutProps) => {
   const [activeItemId, setActiveItemId] = useState<number>(0);
+  const userContext = useContext(UserContext);
+  const isLogged = userContext?.user?.isLogged;
 
   const redirectToPage = async (page: Pages) => {
     await router.push(getPageUrl(page));
@@ -43,7 +46,9 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
       <TopBar />
       <Stack display="flex" direction="row">
         <SideBar items={menuItems} activeItemId={activeItemId} />
-        <LcBodyContainer>{props.children}</LcBodyContainer>
+        <LcBodyContainer>
+          {isLogged ? props.children : "Nie jesteś zalogowany"}
+        </LcBodyContainer>
       </Stack>
     </LMainContainer>
   );

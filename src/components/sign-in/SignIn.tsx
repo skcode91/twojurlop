@@ -45,7 +45,7 @@ const SignIn = () => {
           <TextField
             variant="standard"
             fullWidth
-            {...customRefNameRegister(register, "email")}
+            {...customRefNameRegister(register, "login")}
             type="text"
             placeholder="user name"
           />

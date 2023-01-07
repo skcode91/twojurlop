@@ -4,7 +4,6 @@ import { User } from "../api/User";
 export interface UserContextUser {
   isTokenBeingChecked?: boolean;
   accessTokenExpirationDate: Date;
-  allegroAccessTokenExpirationDate: Date | undefined;
   isLogged: boolean;
 
   userId: number;

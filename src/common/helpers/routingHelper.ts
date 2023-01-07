@@ -5,17 +5,17 @@ import { getWindow } from "./windowHelper";
 export const getPageUrl = (page: Pages): string => {
   switch (page) {
     case Pages.signIn:
-      return "/sign-in/";
+      return "/sign-in";
     case Pages.signOut:
-      return "/sign-out/";
+      return "/sign-out";
     case Pages.dashboard:
       return "/dashboard/";
     case Pages.vacations:
-      return "/dashboard/vacations/";
+      return "/dashboard/vacations";
     case Pages.vacationRequests:
-      return "/dashboard/vacation-requests/";
+      return "/dashboard/vacation-requests";
     case Pages.users:
-      return "/dashboard/users/";
+      return "/dashboard/users";
     default:
       return "/";
   }

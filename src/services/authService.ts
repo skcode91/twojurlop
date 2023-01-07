@@ -1,7 +1,5 @@
 import { signInRequest } from "src/api/authorizationApi";
-import { ClaimTypes } from "src/common/enums/ClaimTypes";
-import { Roles } from "src/common/enums/Roles";
-import { decodeJWT } from "src/common/helpers/jwtHelper";
+import { getRoleById } from "src/common/helpers/userHelper";
 import { SignInRequest } from "src/common/models/api/requests/SignInRequest";
 import { SignInResponse } from "src/common/models/api/responses/SignInResponse";
 import { UserContextUser } from "src/common/models/common/UserContext";
@@ -23,16 +21,14 @@ export const setTokensInUserContext = (
     React.SetStateAction<UserContextUser | undefined>
   >
 ): void => {
-  const jwt = decodeJWT(response.accessToken);
-  const roles = jwt[ClaimTypes.Role];
-
   const userContextValue: UserContextUser = {
     isLogged: true,
-    userId: parseInt(jwt[ClaimTypes.Subject]),
+    userId: response.userId,
     accessTokenExpirationDate: new Date(response.accessTokenValidTo),
-    role: getClaimArray(roles)[0],
-    allegroAccessTokenExpirationDate: undefined,
+    role: getRoleById(response.roleId),
   };
+
+  console.log("res", response);
 
   localStorage.setItem("UserContext", JSON.stringify(userContextValue));
   localStorage.setItem(
