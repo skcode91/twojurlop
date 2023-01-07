@@ -26,15 +26,18 @@ public class GetVacationRequestsHandler : IGetVacationRequestsHandler
         bool isManager = user.RoleId == (int)Enums.Role.Manager || user.RoleId == (int)Enums.Role.Admin;
 
         var query = _context.VacationRequest
-            .Where(x => x.StatusId == (int)Enums.VacationRequestStatus.Active)
+            .Where(x => x.StatusId != (int)Enums.VacationRequestStatus.Deleted)
             .Where(x => x.VacationRequestYears.Any(y => y.Year.Value == request.Year))
+            .Include(x => x.User)
             .Select(x => new VacationRequestResponseItem()
             {
                 Id = x.Id,
                 UserId = x.UserId,
+                UserFullName = x.User.FirstName + " " + x.User.LastName,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                DaysCount = x.DaysCount
+                DaysCount = x.DaysCount,
+                StatusId = x.StatusId,
             });
 
         return new GetVacationRequestsResponse()

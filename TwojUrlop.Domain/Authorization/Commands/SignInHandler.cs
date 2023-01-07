@@ -71,7 +71,9 @@ public class SignInHandler : ISignInHandler
             return new SignInResponse
             {
                 AccessToken = encodedJwt,
-                ExpiresIn = token.ValidTo
+                ExpiresIn = token.ValidTo,
+                RoleId = user.RoleId,
+                UserId = user.Id
             };
         }
 
