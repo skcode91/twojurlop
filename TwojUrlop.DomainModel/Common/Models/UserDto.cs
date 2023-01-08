@@ -1,8 +1,7 @@
-using TwojUrlop.Common.Enums;
-
 namespace TwojUrlop.DomainModel.Common;
 public class UserDto
 {
+    public int Id { get; set; }
     public required string Email { get; set; }
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;

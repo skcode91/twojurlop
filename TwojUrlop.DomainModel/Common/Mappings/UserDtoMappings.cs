@@ -8,6 +8,7 @@ public class UserDtoMappings : IRegister
     {
         config.NewConfig<Entities.User, UserDto>()
             .IgnoreNonMapped(true)
+            .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Email, src => src.Email)
             .Map(dest => dest.FirstName, src => src.FirstName)
             .Map(dest => dest.LastName, src => src.LastName)
@@ -18,6 +19,7 @@ public class UserDtoMappings : IRegister
 
         config.NewConfig<UserDto, Entities.User>()
             .IgnoreNonMapped(true)
+            .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Email, src => src.Email)
             .Map(dest => dest.FirstName, src => src.FirstName)
             .Map(dest => dest.LastName, src => src.LastName)
