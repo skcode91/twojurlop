@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using TwojUrlop.Common.Models.Entities;
+using Entities = TwojUrlop.Common.Models.Entities;
 using TwojUrlop.Common.Models.Settings;
 using TwojUrlop.DataAccess.DatabaseContext;
 using TwojUrlop.DomainModel.Authorization.Commands.SignIn;
@@ -14,11 +14,11 @@ namespace TwojUrlop.Domain.Authorization.Commands;
 public class SignInHandler : ISignInHandler
 {
     private readonly TwojUrlopDbContext _context;
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<Entities.User> _userManager;
+    private readonly SignInManager<Entities.User> _signInManager;
     private readonly JwtOptions _jwtOptions;
 
-    public SignInHandler(TwojUrlopDbContext context, UserManager<User> userManager, SignInManager<User> signInManager,
+    public SignInHandler(TwojUrlopDbContext context, UserManager<Entities.User> userManager, SignInManager<Entities.User> signInManager,
     IOptions<JwtOptions> jwtOptions)
     {
         _context = context;
@@ -71,7 +71,9 @@ public class SignInHandler : ISignInHandler
             return new SignInResponse
             {
                 AccessToken = encodedJwt,
-                ExpiresIn = token.ValidTo
+                ExpiresIn = token.ValidTo,
+                RoleId = user.RoleId,
+                UserId = user.Id
             };
         }
 

@@ -14,7 +14,11 @@ public static class CorsConfigExtensions
             }
             else
             {
-                options.WithOrigins(securitySettings.CORSOrigin);
+                options.WithOrigins("http://localhost:3000");
+                options.WithOrigins("http://localhost:3001");
+                options.WithOrigins("https://localhost:3000");
+                options.WithOrigins("https://localhost");
+
                 if (bool.Parse(securitySettings.CookieAllowCredentials))
                 {
                     options.AllowCredentials();

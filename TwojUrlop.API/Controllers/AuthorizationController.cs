@@ -21,16 +21,6 @@ public class AuthorizationController : Controller
     }
 
     /// <summary>
-    /// Return test string
-    /// </summary>
-    [HttpGet("test-method")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    public string TestMethod()
-    {
-        return "some response";
-    }
-
-    /// <summary>
     /// Login user
     /// </summary>
     [HttpPost("sign-in")]
@@ -48,15 +38,5 @@ public class AuthorizationController : Controller
     public async Task SignUp([FromBody] SignUpRequest request)
     {
         await _signUpHandler.Handle(request);
-    }
-
-    /// <summary>
-    /// Get users first names with last names
-    /// </summary>
-    [HttpGet("get-users-fullname")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<List<string>> GetUsersFullname()
-    {
-        return await _getUsersFullnameHandler.Handle();
     }
 }

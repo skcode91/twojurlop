@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TwojUrlop.DataAccess.DatabaseContext;
+using TwojUrlop.DomainModel.Common.Helpers;
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacationRequests;
 using Enums = TwojUrlop.Common.Enums;
 
@@ -23,18 +24,21 @@ public class GetVacationRequestsHandler : IGetVacationRequestsHandler
             throw new Exception("User not found");
         }
 
-        bool isManager = user.RoleId == (int)Enums.Role.Manager || user.RoleId == (int)Enums.Role.Admin;
+        bool isManager = UserHelper.IsManagerOrAdmin(user);
 
         var query = _context.VacationRequest
-            .Where(x => x.StatusId == (int)Enums.VacationRequestStatus.Active)
+            .Where(x => x.StatusId != (int)Enums.VacationRequestStatus.Deleted)
             .Where(x => x.VacationRequestYears.Any(y => y.Year.Value == request.Year))
+            .Include(x => x.User)
             .Select(x => new VacationRequestResponseItem()
             {
                 Id = x.Id,
                 UserId = x.UserId,
+                UserFullName = x.User.FirstName + " " + x.User.LastName,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                DaysCount = x.DaysCount
+                DaysCount = x.DaysCount,
+                StatusId = x.StatusId,
             });
 
         return new GetVacationRequestsResponse()
