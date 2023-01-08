@@ -12,6 +12,8 @@ public class SignUpRequestMappings : IRegister
         .Map(dest => dest.NormalizedEmail, src => src.Email.ToUpperInvariant())
         .Map(dest => dest.FirstName, src => src.FirstName)
         .Map(dest => dest.GenderId, src => src.GenderId)
-        .Map(dest => dest.LastName, src => src.LastName);
+        .Map(dest => dest.LastName, src => src.LastName)
+        .Map(dest => dest.HiringDate, src => src.HiringDate )
+        .Map(dest => dest.NumberOfYearsWorkedOnHiringDate, src => src.NumberOfYearsWorkedOnHiringDate);
     }
 }
