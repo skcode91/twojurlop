@@ -14,6 +14,9 @@ using TwojUrlop.DomainModel.User.Commands.AddUser;
 using TwojUrlop.Domain.User.Queries;
 using TwojUrlop.DomainModel.User.Queries.GetUserVacationYearInfo;
 using TwojUrlop.Domain.User.Commands;
+using TwojUrlop.DomainModel.User.Commands.ChangeUserRole;
+using TwojUrlop.DomainModel.User.Commands.ChangeUserStatus;
+using TwojUrlop.DomainModel.User.Queries.GetUsers;
 
 namespace TwojUrlop.Extensions;
 public static class DomainHandlerExtensions
@@ -31,6 +34,9 @@ public static class DomainHandlerExtensions
         services.AddTransient<IGetUserBaseInfoHandler, GetUserBaseInfoHandler>();
         services.AddTransient<IGetUserVacationYearInfoHandler, GetUserVacationYearInfoHandler>();
         services.AddTransient<IAddUserHandler, AddUserHandler>();
+        services.AddTransient<IChangeUserRoleHandler, ChangeUserRoleHandler>();
+        services.AddTransient<IChangeUserStatusHandler, ChangeUserStatusHandler>();
+        services.AddTransient<IGetUsersHandler, GetUsersHandler>();
     }
 }
 

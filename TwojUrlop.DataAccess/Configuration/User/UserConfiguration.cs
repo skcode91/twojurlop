@@ -13,6 +13,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.PESEL).IsRequired();
 
+        builder.Property(x => x.StatusId)
+            .HasDefaultValue(Common.Enums.Status.Active);
+
         builder.Property(x => x.NumberOfYearsWorkedOnHiringDate).IsRequired();
 
         builder.HasMany(x => x.Vacations)

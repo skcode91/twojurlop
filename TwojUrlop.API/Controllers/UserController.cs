@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TwojUrlop.DomainModel.User.Queries.GetUserBaseInfo;
 using TwojUrlop.DomainModel.User.Commands.AddUser;
+using TwojUrlop.DomainModel.User.Commands.ChangeUserRole;
+using TwojUrlop.DomainModel.User.Commands.ChangeUserStatus;
+using TwojUrlop.DomainModel.User.Queries.GetUsers;
 
 namespace TwojUrlop.Controllers;
 [Route("api/[controller]")]
@@ -12,10 +15,18 @@ public class UserController : Controller
 {
     private readonly IGetUserBaseInfoHandler _getUserBaseInfoHandler;
     private readonly IAddUserHandler _addUserHandler;
-    public UserController(IGetUserBaseInfoHandler getUserBaseInfoHandler, IAddUserHandler addUserHandler)
+    private readonly IChangeUserRoleHandler _changeUserRoleHandler;
+    private readonly IChangeUserStatusHandler _changeUserStatusHandler;
+    private readonly IGetUsersHandler _getUsersHandler;
+    public UserController(IGetUserBaseInfoHandler getUserBaseInfoHandler, IAddUserHandler addUserHandler,
+    IChangeUserRoleHandler changeUserRoleHandler, IChangeUserStatusHandler changeUserStatusHandler,
+    IGetUsersHandler getUsersHandler)
     {
         _getUserBaseInfoHandler = getUserBaseInfoHandler;
         _addUserHandler = addUserHandler;
+        _changeUserRoleHandler = changeUserRoleHandler;
+        _changeUserStatusHandler = changeUserStatusHandler;
+        _getUsersHandler = getUsersHandler;
     }
 
     [HttpGet("user-base-info")]
@@ -32,4 +43,24 @@ public class UserController : Controller
         await _addUserHandler.Handle(request);
     }
 
+    [HttpPost("change-user-role")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task ChangeUserRole([FromBody] ChangeUserRoleRequest request)
+    {
+        await _changeUserRoleHandler.Handle(request);
+    }
+
+    [HttpPost("change-user-status")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task ChangeUserStatus([FromBody] ChangeUserStatusRequest request)
+    {
+        await _changeUserStatusHandler.Handle(request);
+    }
+
+    [HttpGet("change-user-role")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task GetUsers([FromQuery] GetUsersRequest request)
+    {
+        await _getUsersHandler.Handle(request);
+    }
 }
