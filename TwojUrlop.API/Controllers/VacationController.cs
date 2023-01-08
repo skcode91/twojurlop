@@ -5,11 +5,13 @@ using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Commands.HandleVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacations;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TwojUrlop.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class VacationController : Controller
 {
     private readonly ISendVacationRequestHandler _vacationRequestHandler;
@@ -17,7 +19,7 @@ public class VacationController : Controller
     private readonly IDeleteVacationRequestHandler _deleteVacationRequestHandler;
     private readonly IHandleVacationRequestHandler _handlerVacationRequestHandler;
     private readonly IGetVacationsHandler _getVacationsHandler;
-    public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler, 
+    public VacationController(IGetVacationRequestsHandler getVacationRequestsHandler, IDeleteVacationRequestHandler deleteVacationRequestHandler,
         ISendVacationRequestHandler vacationRequestHandler, IHandleVacationRequestHandler handleVacationRequestHandler, IGetVacationsHandler getVacationsHandler)
     {
         _getVacationRequestsHandler = getVacationRequestsHandler;
@@ -52,7 +54,7 @@ public class VacationController : Controller
     }
 
     [HttpPost("vacation-request-handle")]
-    public async Task HandleRequestVacation([FromBody] HandleVacationRequestRequest request) 
+    public async Task HandleRequestVacation([FromBody] HandleVacationRequestRequest request)
     {
         await _handlerVacationRequestHandler.Handle(request);
     }

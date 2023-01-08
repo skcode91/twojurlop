@@ -1,12 +1,12 @@
 using Mapster;
-using TwojUrlop.Common.Models.Entities;
+using Entities = TwojUrlop.Common.Models.Entities;
 
 namespace TwojUrlop.DomainModel.Authorization.Commands.SignUp;
 public class SignUpRequestMappings : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<SignUpRequest, User>()
+        config.NewConfig<SignUpRequest, Entities.User>()
         .IgnoreNonMapped(true)
         .Map(dest => dest.Email, src => src.Email)
         .Map(dest => dest.NormalizedEmail, src => src.Email.ToUpperInvariant())

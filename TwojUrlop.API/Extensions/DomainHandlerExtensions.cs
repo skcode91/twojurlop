@@ -9,6 +9,8 @@ using TwojUrlop.DomainModel.Vacation.Queries.GetVacationRequests;
 using TwojUrlop.DomainModel.Vacation.Commands.SendVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Commands.HandleVacationRequest;
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacations;
+using TwojUrlop.DomainModel.User.Queries.GetUserBaseInfo;
+using TwojUrlop.Domain.User.Queries;
 
 namespace TwojUrlop.Extensions;
 public static class DomainHandlerExtensions
@@ -23,6 +25,7 @@ public static class DomainHandlerExtensions
         services.AddTransient<ISendVacationRequestHandler, SendVacationRequestHandler>();
         services.AddTransient<IHandleVacationRequestHandler, HandleVacationRequestHandler>();
         services.AddTransient<IGetVacationsHandler, GetVacationHandler>();
+        services.AddTransient<IGetUserBaseInfoHandler, GetUserBaseInfoHandler>();
     }
 }
 

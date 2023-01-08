@@ -7,6 +7,18 @@
   <ItemGroup>
     <ProjectReference Include="..\TwojUrlop.DataAccess\TwojUrlop.DataAccess.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="User\" />
+    <None Remove="User\Commands\" />
+    <None Remove="User\Queries\" />
+    <None Remove="User\Queries\GetUserBaseInfo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="User\" />
+    <Folder Include="User\Commands\" />
+    <Folder Include="User\Queries\" />
+    <Folder Include="User\Queries\GetUserBaseInfo\" />
+  </ItemGroup>
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
