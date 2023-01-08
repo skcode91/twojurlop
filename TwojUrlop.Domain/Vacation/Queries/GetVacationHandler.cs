@@ -1,7 +1,6 @@
 using TwojUrlop.DomainModel.Vacation.Queries.GetVacations;
 using TwojUrlop.DataAccess.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using Enums = TwojUrlop.Common.Enums;
 using TwojUrlop.DomainModel.Common.Helpers;
 
 namespace TwojUrlop.Domain.Vacation.Queries;

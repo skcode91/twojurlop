@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         service.AddJwt(configuration);
         service.AddControllers();
         service.AddSwagger(projectName);
-        //service.AddCors();
+        service.AddCors();
         service.AddMvc();
     }
 }
