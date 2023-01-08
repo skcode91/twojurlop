@@ -13,6 +13,7 @@ using TwojUrlop.DomainModel.User.Queries.GetUserBaseInfo;
 using TwojUrlop.DomainModel.User.Commands.AddUser;
 using TwojUrlop.Domain.User.Queries;
 using TwojUrlop.Domain.User.Commands;
+using TwojUrlop.DomainModel.User.Commands.SetUserAsMenager;
 
 namespace TwojUrlop.Extensions;
 public static class DomainHandlerExtensions
@@ -29,6 +30,7 @@ public static class DomainHandlerExtensions
         services.AddTransient<IGetVacationsHandler, GetVacationHandler>();
         services.AddTransient<IGetUserBaseInfoHandler, GetUserBaseInfoHandler>();
         services.AddTransient<IAddUserHandler, AddUserHandler>();
+        services.AddTransient<ISetUserAsMenagerHandler, SetUserAsMenagerHandler>();
     }
 }
 
