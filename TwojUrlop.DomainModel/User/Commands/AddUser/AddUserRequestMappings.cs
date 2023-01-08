@@ -1,20 +1,21 @@
 using Mapster;
-using Entities = TwojUrlop.Common.Models.Entities;
+using TwojUrlop.DomainModel.Authorization.Commands.SignUp;
 
-namespace TwojUrlop.DomainModel.Authorization.Commands.SignUp;
-public class SignUpRequestMappings : IRegister
+namespace TwojUrlop.DomainModel.User.Commands.AddUser;
+
+public class AddUserRequestMappings : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<SignUpRequest, Entities.User>()
+        config.NewConfig<AddUserRequest, SignUpRequest>()
         .IgnoreNonMapped(true)
         .Map(dest => dest.Email, src => src.Email)
-        .Map(dest => dest.NormalizedEmail, src => src.Email.ToUpperInvariant())
         .Map(dest => dest.FirstName, src => src.FirstName)
         .Map(dest => dest.GenderId, src => src.GenderId)
         .Map(dest => dest.LastName, src => src.LastName)
         .Map(dest => dest.HiringDate, src => src.HiringDate )
         .Map(dest => dest.NumberOfYearsWorkedOnHiringDate, src => src.NumberOfYearsWorkedOnHiringDate)
-        .Map(dest => dest.PESEL, src => src.PESEL);
+        .Map(dest => dest.PESEL, src => src.pESEL)
+        .Map(dest => dest.Password, src => src.Password);
     }
 }

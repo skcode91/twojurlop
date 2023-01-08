@@ -2,17 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TwojUrlop.DomainModel.User.Queries.GetUserBaseInfo;
+using TwojUrlop.DomainModel.User.Commands.AddUser;
 
 namespace TwojUrlop.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
+[AllowAnonymous]
 public class UserController : Controller
 {
     private readonly IGetUserBaseInfoHandler _getUserBaseInfoHandler;
-    public UserController(IGetUserBaseInfoHandler getUserBaseInfoHandler)
+    private readonly IAddUserHandler _addUserHandler;
+    public UserController(IGetUserBaseInfoHandler getUserBaseInfoHandler, IAddUserHandler addUserHandler)
     {
         _getUserBaseInfoHandler = getUserBaseInfoHandler;
+        _addUserHandler = addUserHandler;
     }
     /// <summary>
     /// Return test string
@@ -22,6 +26,13 @@ public class UserController : Controller
     public async Task<GetUserBaseInfoResponse> GetUserBaseInfo([FromQuery] GetUserBaseInfoRequest request)
     {
         return await _getUserBaseInfoHandler.Handle(request);
+    }
+
+    [HttpPost("User-Add")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task AddUser([FromBody] AddUserRequest request)
+    {
+        await _addUserHandler.Handle(request);
     }
 
 }
