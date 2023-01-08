@@ -6,6 +6,7 @@ using TwojUrlop.DomainModel.User.Commands.AddUser;
 using TwojUrlop.DomainModel.User.Commands.ChangeUserRole;
 using TwojUrlop.DomainModel.User.Commands.ChangeUserStatus;
 using TwojUrlop.DomainModel.User.Queries.GetUsers;
+using TwojUrlop.DomainModel.Common;
 
 namespace TwojUrlop.Controllers;
 [Route("api/[controller]")]
@@ -57,10 +58,10 @@ public class UserController : Controller
         await _changeUserStatusHandler.Handle(request);
     }
 
-    [HttpGet("change-user-role")]
+    [HttpGet("users")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task GetUsers([FromQuery] GetUsersRequest request)
+    public async Task<IEnumerable<UserDto>> GetUsers([FromQuery] GetUsersRequest request)
     {
-        await _getUsersHandler.Handle(request);
+        return await _getUsersHandler.Handle(request);
     }
 }
