@@ -27,7 +27,7 @@ public class SignUpHandler : ISignUpHandler
 
         string username = request.Email.ToUpperInvariant();
         var user = await _context.User
-            .FirstOrDefaultAsync(x => x.UserName == username);
+            .FirstOrDefaultAsync(x => x.Email.ToUpper() == signUpUserData.Email.ToUpper());
 
         if (user != null)
         {

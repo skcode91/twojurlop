@@ -30,7 +30,7 @@ public class GetUsersHandler : IGetUsersHandler
             throw new Exception("Unauthorized");
         }
 
-        var usersEntity = _context.User.Where(x => x.Id != request.CurrentUserId);
+        var usersEntity = _context.User.Where(x => x.Id != request.CurrentUserId && x.StatusId != (int)Enums.Status.Deleted);
 
         return usersEntity.Adapt<IEnumerable<UserDto>>();
     }

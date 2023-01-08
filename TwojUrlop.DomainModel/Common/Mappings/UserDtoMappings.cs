@@ -13,6 +13,7 @@ public class UserDtoMappings : IRegister
             .Map(dest => dest.FirstName, src => src.FirstName)
             .Map(dest => dest.LastName, src => src.LastName)
             .Map(dest => dest.GenderId, src => src.GenderId)
+            .Map(dest => dest.StatusId, src => src.StatusId)
             .Map(dest => dest.RoleId, src => src.RoleId)
             .Map(dest => dest.HiringDate, src => src.HiringDate)
             .Map(dest => dest.NumberOfYearsWorkedOnHiringDate, src => src.NumberOfYearsWorkedOnHiringDate);
@@ -24,6 +25,7 @@ public class UserDtoMappings : IRegister
             .Map(dest => dest.FirstName, src => src.FirstName)
             .Map(dest => dest.LastName, src => src.LastName)
             .Map(dest => dest.GenderId, src => src.GenderId)
+            .Map(dest => dest.StatusId, src => src.StatusId)
             .Map(dest => dest.RoleId, src => src.RoleId)
             .Map(dest => dest.HiringDate, src => src.HiringDate)
             .Map(dest => dest.NumberOfYearsWorkedOnHiringDate, src => src.NumberOfYearsWorkedOnHiringDate);
