@@ -26,13 +26,13 @@ export const addUserRequest = async (
 export const changeUserRoleRequest = async (
   request: ChangeUserRoleRequest
 ): Promise<void> => {
-  await apiClient.post(controllerName + "/change-user-role");
+  await apiClient.post(controllerName + "/change-user-role", request);
 };
 
 export const changeUserStatusRequest = async (
   request: ChangeUserStatusRequest
 ): Promise<void> => {
-  await apiClient.post(controllerName + "/change-user-status");
+  await apiClient.post(controllerName + "/change-user-status", request);
 };
 
 export const getUsersRequest = async (
