@@ -14,10 +14,12 @@ public static class CorsConfigExtensions
             }
             else
             {
-                options.WithOrigins("http://localhost:3000");
-                options.WithOrigins("http://localhost:3001");
-                options.WithOrigins("https://localhost:3000");
-                options.WithOrigins("https://localhost");
+                // options.WithOrigins("http://localhost:3000");
+                // options.WithOrigins("http://localhost:3001");
+                // options.WithOrigins("https://localhost:3000");
+                // options.WithOrigins("https://localhost");
+                options.WithOrigins("https://twoj-urlop.azurewebsites.net");
+                options.WithOrigins("http://twoj-urlop.azurewebsites.net");
 
                 if (bool.Parse(securitySettings.CookieAllowCredentials))
                 {
