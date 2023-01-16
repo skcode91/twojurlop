@@ -12,3 +12,6 @@ export const getRoleById = (roleId: number): Roles => {
       return Roles.User;
   }
 };
+
+export const isManagerOrAdmin = (role: Roles) =>
+  role === Roles.Admin || role === Roles.Manager;

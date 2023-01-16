@@ -20,7 +20,7 @@ export const getUserBaseInfoRequest = async (
 export const addUserRequest = async (
   request: AddUserRequest
 ): Promise<void> => {
-  await apiClient.post(controllerName + "/user-add");
+  await apiClient.post(controllerName + "/user-add", request);
 };
 
 export const changeUserRoleRequest = async (

@@ -10,6 +10,7 @@ import { formatDistance } from "date-fns";
 import { SendVacationRequest } from "src/common/models/api/requests/SendVacationRequestRequest";
 import { UserContext } from "src/common/contexts/UserContext";
 import { CreateVacationRequestProps } from "./CreateVacationRequestProps";
+import { Stack } from "@mui/system";
 
 const CreateVacationRequest = (props: CreateVacationRequestProps) => {
   const { handleSendVacationRequest } = props;
@@ -17,9 +18,11 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
   const oneDay = 1000 * 3600 * 24;
   const userContext = useContext(UserContext);
   const userId = userContext.user?.userId;
+  const [customNumberOfDays, setCustomNumberOfDays] = useState<number>(0);
 
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  console.log(customNumberOfDays);
 
   const daysCount = useMemo(() => {
     const start = startDate ?? new Date();
@@ -28,10 +31,11 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
     const distance = end.getTime() - start.getTime();
 
     if (distance < oneDay) {
-      return "0 dni";
+      return "dzień";
     }
-
-    return formatDistance(startDate ?? new Date(), endDate ?? new Date(), {
+    const fixedEnd = endDate ? new Date(endDate) : new Date();
+    fixedEnd.setHours(fixedEnd.getHours() + 24);
+    return formatDistance(startDate ?? new Date(), fixedEnd, {
       includeSeconds: false,
       locale: plLocale,
       addSuffix: false,
@@ -50,6 +54,7 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
   };
 
   const handleChangeEndDate = (date: Date | null) => {
+    date && date.setHours(date.getHours() + 1);
     setEndDate(date);
     if (startDate && date && date < startDate) setStartDate(date);
   };
@@ -73,17 +78,28 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
     const daysCount = Math.round(
       (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
     );
+    const fixedDaysCount =
+      customNumberOfDays > 0 ? customNumberOfDays : daysCount + 1;
 
     const request: SendVacationRequest = {
       userId: userId,
       startDate: startDate,
-      endDate: endDate,
-      daysCount: daysCount,
+      endDate:
+        endDate > startDate
+          ? endDate
+          : new Date(startDate.setHours(startDate.getHours() + 1)),
+      daysCount: fixedDaysCount,
     };
 
     await handleSendVacationRequest(request);
     setIsFormVisible(false);
-  }, [endDate, handleSendVacationRequest, startDate, userId]);
+  }, [
+    customNumberOfDays,
+    endDate,
+    handleSendVacationRequest,
+    startDate,
+    userId,
+  ]);
 
   return (
     <div>
@@ -103,6 +119,7 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
               <Typography variant="h6">Początek</Typography>
               <DesktopDatePicker
                 value={startDate}
+                minDate={new Date()}
                 onChange={handleChangeStartDate}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -111,7 +128,7 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
             <div>
               <Typography variant="h6">Koniec</Typography>
               <DesktopDatePicker
-                minDate={startDate ?? undefined}
+                minDate={startDate ?? new Date()}
                 maxDate={maxEndDate}
                 value={endDate}
                 onChange={handleChangeEndDate}
@@ -121,8 +138,21 @@ const CreateVacationRequest = (props: CreateVacationRequestProps) => {
           </LocalizationProvider>
           <div>
             <Typography variant="h6">Liczba dni</Typography>
-            {daysCount}
+            {customNumberOfDays > 0
+              ? customNumberOfDays.toString() + " dni"
+              : daysCount}
           </div>
+          <Stack display="flex" direction="column">
+            <Typography variant="h6">Własna liczba dni</Typography>
+            <Typography variant="body2">
+              (W przypadku świąt lub weekendów)
+            </Typography>
+          </Stack>
+
+          <TextField
+            value={customNumberOfDays > 0 ? customNumberOfDays : ""}
+            onChange={(e) => setCustomNumberOfDays(Number(e.target.value))}
+          />
           <div>
             {!isInSameYear && (
               <Typography color="error" variant="body2">

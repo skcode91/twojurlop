@@ -106,6 +106,7 @@ const VacationRequestsList = (props: VacationRequestListProps) => {
                 <TableCell>Id</TableCell>
                 <TableCell>Id pracownika</TableCell>
                 <TableCell>Pełna nazwa</TableCell>
+                <TableCell>Dni</TableCell>
                 <TableCell>Początek</TableCell>
                 <TableCell>Koniec</TableCell>
                 <TableCell>Status</TableCell>
@@ -121,6 +122,7 @@ const VacationRequestsList = (props: VacationRequestListProps) => {
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.userId}</TableCell>
                   <TableCell>{row.userFullName}</TableCell>
+                  <TableCell>{row.daysCount}</TableCell>
                   <TableCell>
                     {getDisplayedDate(new Date(row.startDate), plLocale)}
                   </TableCell>

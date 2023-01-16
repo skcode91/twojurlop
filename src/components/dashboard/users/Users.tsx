@@ -1,6 +1,12 @@
 import { Snackbar, Typography } from "@mui/material";
 import router from "next/router";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   changeUserRoleRequest,
   changeUserStatusRequest,
@@ -26,7 +32,7 @@ const Users = () => {
   const userId = userContext.user?.userId;
 
   const getUsers = useCallback(async () => {
-    if (!userId) {
+    if (!userId || userContext.user?.role === Roles.User) {
       await router.push(getPageUrl(Pages.signIn));
       return;
     }
@@ -36,11 +42,13 @@ const Users = () => {
     } catch {
       setSnackbarMessage("Coś poszło nie tak");
     }
-  }, [userId]);
+  }, [userContext.user?.role, userId]);
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  const sortedUsers = useMemo(() => users.sort((a, b) => a.id - b.id), [users]);
 
   const handleDeleteUser = useCallback(
     async (user: UserDto) => {
@@ -95,11 +103,11 @@ const Users = () => {
         message={snackbarMessage}
       />
       <Typography variant="h2">Pracownicy</Typography>
-      <CreateAccount />
+      <CreateAccount getUsers={() => getUsers()} />
       <UsersList
         handleDeleteUser={handleDeleteUser}
         handleChangeRole={handleChangeRole}
-        users={users}
+        users={sortedUsers}
       />
     </DashboardLayout>
   );

@@ -44,6 +44,8 @@ const VacationRequests = () => {
         };
 
         const response = await getVacationRequestsRequest(request);
+        console.log(response);
+
         setVacationRequests(response.vacationRequests);
       } catch {
         setSnackbarMessage("Błąd pobierania próśb o urlop");

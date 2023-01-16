@@ -1,6 +1,6 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import DashboardLayout from "src/common/components/dashboard-layout/DashboardLayout";
 import { UserContext } from "src/common/contexts/UserContext";
 import { Pages } from "src/common/enums/Pages";
@@ -18,21 +18,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <div>
-        <Typography variant="h4">
-          {isLogged ? "zalogowany" : "niezalogowany"}
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={() => redirectToPage(Pages.signIn)}
-        >
-          Logowanie
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => redirectToPage(Pages.signOut)}
-        >
-          Rejestracja
-        </Button>
+        <Typography variant="h4">Witamy w aplikacji Twój urlop!</Typography>
       </div>
     </DashboardLayout>
   );
